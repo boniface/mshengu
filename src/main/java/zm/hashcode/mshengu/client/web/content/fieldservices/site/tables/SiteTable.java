@@ -56,7 +56,7 @@ public class SiteTable extends Table {
         totalNumberOfUnits = 0;
 
         for (Site site : customerSites) {
-            SiteServiceContractLifeCycle contractLifeCycle = SiteFacade.getSiteService().getSitetCurrentContract(site.getId());
+            SiteServiceContractLifeCycle contractLifeCycle = site.getLastSiteServiceContractLifeCycle();
             if (contractLifeCycle != null) {
                 totalNumberOfUnits += contractLifeCycle.getExpectedNumberOfUnits();
                 monthlyServices += contractLifeCycle.getMonthlyServices();

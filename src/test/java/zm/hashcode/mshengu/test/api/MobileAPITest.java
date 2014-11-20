@@ -132,7 +132,7 @@ public class MobileAPITest extends AppTest {
     boolean wasContractUpdated(String siteId, String unitId) {
         siteService = ctx.getBean(SiteService.class);
         Site site = siteService.findByName(siteId);
-        SiteServiceContractLifeCycle contractLifeCycle = siteService.getSitetCurrentContract(site.getId());
+        SiteServiceContractLifeCycle contractLifeCycle = site.getLastSiteServiceContractLifeCycle();
         return wasSiteUnitFound(contractLifeCycle, unitId);
     }
 }

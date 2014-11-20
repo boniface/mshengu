@@ -180,7 +180,7 @@ public class MobileAPIAppServiceImpl implements MobileAPIAppService {
 
         if (site != null) {
 
-            SiteServiceContractLifeCycle siteServiceContractLifeCycle = siteService.getSitetCurrentContract(site.getId());
+            SiteServiceContractLifeCycle siteServiceContractLifeCycle = site.getLastSiteServiceContractLifeCycle();
 
             Set<SiteUnit> siteUnits = new HashSet<>();
             Set<SiteUnit> currentUnitsAtThisSite = siteServiceContractLifeCycle.getSiteUnit();
@@ -205,7 +205,7 @@ public class MobileAPIAppServiceImpl implements MobileAPIAppService {
         Site site = siteService.findByName(siteName);
 
 
-        SiteServiceContractLifeCycle siteServiceContractLifeCycle = siteService.getSitetCurrentContract(site.getId());
+        SiteServiceContractLifeCycle siteServiceContractLifeCycle = site.getLastSiteServiceContractLifeCycle();
 
         Set<SiteUnit> siteUnits = new HashSet<>();
         Set<SiteUnit> currentUnitsAtThisSite = siteServiceContractLifeCycle.getSiteUnit();
@@ -240,7 +240,7 @@ public class MobileAPIAppServiceImpl implements MobileAPIAppService {
         SiteServiceContractLifeCycle newSiteServiceContractLifeCycle = null;
         if (site != null) {
 
-            SiteServiceContractLifeCycle siteServiceContractLifeCycle = siteService.getSitetCurrentContract(site.getId());
+            SiteServiceContractLifeCycle siteServiceContractLifeCycle = site.getLastSiteServiceContractLifeCycle();
 
 //            System.out.println("Site name -" + site.getName() + "-");
 //            System.out.println("Site id  -" + site.getId() + "-");

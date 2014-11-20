@@ -49,7 +49,7 @@ public class SiteTableOriginal extends Table {
 
 
         for (Site site : customerSites) {
-            SiteServiceContractLifeCycle contractLifeCycle = SiteFacade.getSiteService().getSitetCurrentContract(site.getId());
+            SiteServiceContractLifeCycle contractLifeCycle = site.getLastSiteServiceContractLifeCycle();
             String noOfUnits = getNoOfUnits(contractLifeCycle.getNumberOfUnits(), contractLifeCycle.getExpectedNumberOfUnits());
             addItem(new Object[]{site.getName(),
                         site.getLocation().getName(),

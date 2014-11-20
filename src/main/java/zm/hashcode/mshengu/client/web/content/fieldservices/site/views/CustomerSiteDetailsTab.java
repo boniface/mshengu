@@ -329,7 +329,7 @@ public class CustomerSiteDetailsTab extends VerticalLayout implements
 
     private SiteDetailsBean getBean(Site site) {
         SiteDetailsBean bean = new SiteDetailsBean();
-        SiteServiceContractLifeCycle contractLifeCycle = SiteFacade.getSiteService().getSitetCurrentContract(site.getId());
+        SiteServiceContractLifeCycle contractLifeCycle = site.getLastSiteServiceContractLifeCycle();
 
         bean.setName(site.getName());
         bean.setStreetAddress(site.getAddressStreetAddress());

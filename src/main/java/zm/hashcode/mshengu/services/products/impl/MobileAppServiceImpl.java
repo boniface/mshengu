@@ -168,7 +168,7 @@ public class MobileAppServiceImpl implements MobileAppService {
 
         if (site != null) {
 
-            SiteServiceContractLifeCycle siteServiceContractLifeCycle = siteService.getSitetCurrentContract(site.getId());
+            SiteServiceContractLifeCycle siteServiceContractLifeCycle = site.getLastSiteServiceContractLifeCycle();
 
             Set<SiteUnit> siteUnits = new HashSet<>();
             Set<SiteUnit> currentUnitsAtThisSite = siteServiceContractLifeCycle.getSiteUnit();
@@ -194,7 +194,7 @@ public class MobileAppServiceImpl implements MobileAppService {
     private SiteServiceContractLifeCycle updateSiteServiceContractLifeCycleAdd(String siteName, Set<SiteUnit> newUnitsAtThisSite) {
         Site site = siteService.findByName(siteName);
 
-        SiteServiceContractLifeCycle siteServiceContractLifeCycle = siteService.getSitetCurrentContract(site.getId());
+        SiteServiceContractLifeCycle siteServiceContractLifeCycle = site.getLastSiteServiceContractLifeCycle();
 
         Set<SiteUnit> siteUnits = new HashSet<>();
         Set<SiteUnit> currentUnitsAtThisSite = siteServiceContractLifeCycle.getSiteUnit();
@@ -231,7 +231,7 @@ public class MobileAppServiceImpl implements MobileAppService {
         SiteServiceContractLifeCycle newSiteServiceContractLifeCycle = null;
         if (site != null) {
 
-            SiteServiceContractLifeCycle siteServiceContractLifeCycle = siteService.getSitetCurrentContract(site.getId());
+            SiteServiceContractLifeCycle siteServiceContractLifeCycle = site.getLastSiteServiceContractLifeCycle();
 
 //            System.out.println("Site name -" + site.getName() + "-");
 //            System.out.println("Site id  -" + site.getId() + "-");

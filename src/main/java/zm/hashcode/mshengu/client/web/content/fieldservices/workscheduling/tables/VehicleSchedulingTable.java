@@ -110,7 +110,7 @@ public class VehicleSchedulingTable extends Table {
             Embedded saturday = null;
             Embedded sunday = null;
 
-            SiteServiceContractLifeCycle contractLifeCycle = SiteFacade.getSiteService().getSitetCurrentContract(site.getId());
+            SiteServiceContractLifeCycle contractLifeCycle = site.getLastSiteServiceContractLifeCycle();
             if (contractLifeCycle != null) {
                 units = contractLifeCycle.getExpectedNumberOfUnits();
                 frequency = contractLifeCycle.getFrequency();
