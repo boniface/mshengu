@@ -84,6 +84,9 @@ public class WorkSchedulingTab extends VerticalLayout implements Property.ValueC
                 form.errorMessage.setValue("");
                 exportPdf.setVisible(false);
                 export.setVisible(true);
+            }else{
+                table.clearTable();
+                export.setVisible(false);
             }
         }
         if (property == form.driverName) {            

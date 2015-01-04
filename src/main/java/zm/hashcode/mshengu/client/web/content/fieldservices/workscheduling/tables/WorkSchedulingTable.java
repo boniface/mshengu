@@ -72,4 +72,16 @@ public class WorkSchedulingTable extends Table {
     private int totalWeeklyServices(int numberOfUnits, int Frequency) {
         return numberOfUnits * Frequency;
     }
+    public void clearTable(){
+        setNullSelectionAllowed(true);
+        setSelectable(false);
+        setImmediate(false);
+
+        removeAllItems();
+        // Allow selecting items from the table.
+        setNullSelectionAllowed(false);
+        setSelectable(true);
+        // Send changes in selection immediately to server.
+        setImmediate(true);
+    }
 }

@@ -7,6 +7,7 @@ package zm.hashcode.mshengu.test.procurement;
 import java.math.BigDecimal;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.testng.annotations.Test;
 import zm.hashcode.mshengu.domain.procurement.Request;
 import zm.hashcode.mshengu.services.procurement.RequestService;
 import zm.hashcode.mshengu.test.AppTest;
@@ -21,19 +22,20 @@ public class PurchaseOrdeTest extends AppTest {
     private RequestService requestService;
 
 
-//    @Test
+    @Test
     public void getRequests() {
 
         requestService = ctx.getBean(RequestService.class);
         Request request = requestService.findByOrderNumber("MSH_PO-000480");
+//                                                          ("MSH_PO-000737")
         
 //        Request request = requestService.
         System.out.println("Order No " + request.getOrderNumber() + " Total - NO1 - " + request.getTotal());
         
-        Request newRequest = new Request.Builder(request.getPerson())
-                    .request(request)
-                    .total(new BigDecimal("9298.98"))
-                    .build();
+//        Request newRequest = new Request.Builder(request.getPerson())
+//                    .request(request)
+//                    .total(new BigDecimal("9298.98"))
+//                    .build();
 //        requestService.merge(newRequest);
         
         
