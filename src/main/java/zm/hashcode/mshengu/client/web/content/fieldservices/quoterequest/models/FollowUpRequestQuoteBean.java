@@ -17,7 +17,9 @@ public class FollowUpRequestQuoteBean {
     private String eventDate;
     private String deliveryDate;
     private String collectionDate;
+    private String deliveryAddress;
     private String contactNumber;
+    private String alternateContactNumber;
     private String toiletsRequired1;
     private String toiletsRequired2;
     private String toiletsRequired3;
@@ -28,6 +30,31 @@ public class FollowUpRequestQuoteBean {
     private int numberOfToiletRolls;
     private int daysRental;
     private String total;
+    private String comment;
+
+    public String getAlternateContactNumber() {
+        return alternateContactNumber;
+    }
+
+    public void setAlternateContactNumber(String alternateContactNumber) {
+        this.alternateContactNumber = alternateContactNumber;
+    }
+
+    public String getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
     public String getCurrentDate() {
         return currentDate;

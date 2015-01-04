@@ -17,7 +17,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.Months;
 import zm.hashcode.mshengu.app.facade.products.UnitTypeFacade;
 import zm.hashcode.mshengu.app.util.DateTimeFormatHelper;
 import zm.hashcode.mshengu.domain.external.IncomingRFQ;
@@ -38,9 +43,11 @@ public class FollowUpRequestQuoteControl {
             requestedQuoteResponse = new FollowUpRequestQuoteBean();
             requestedQuoteResponse.setCollectionDate(formatHelper.getDayMonthYear(i.getCollectionDate()));
             requestedQuoteResponse.setContactNumber(i.getContactNumber());
+            requestedQuoteResponse.setAlternateContactNumber(i.getTelephoneNumber());
+            requestedQuoteResponse.setDeliveryAddress(i.getDeliveryAddress().replace("\n", ", ").replace("\r", ""));
             requestedQuoteResponse.setCustomerName(i.getCompanyName());
             requestedQuoteResponse.setDaysRental(i.getDaysRental());
-            requestedQuoteResponse.setDeliveryDate(formatHelper.getDayMonthYear(i.getCollectionDate()));
+            requestedQuoteResponse.setDeliveryDate(formatHelper.getDayMonthYear(i.getDeliveryDate()));
             requestedQuoteResponse.setEventDate(formatHelper.getDayMonthYear(i.getEventDate()));
             requestedQuoteResponse.setNumberOfJanitors(i.getNumberOfJanitors());
             requestedQuoteResponse.setNumberOfToiletRolls(i.getNumberOfToiletRolls());
@@ -54,7 +61,6 @@ public class FollowUpRequestQuoteControl {
 //            System.out.println("Id1: " + i.getToiletsRequired1());
 //            System.out.println("Id2: " + i.getToiletsRequired2());
 //            System.out.println("Id3: " + i.getToiletsRequired3());
-
             UnitType toiletsRequired1 = UnitTypeFacade.getUnitTypeService().findById(i.getToiletsRequired1());
 
             //if the additional toilets are not entered, the if statememts prevent null pointers.
