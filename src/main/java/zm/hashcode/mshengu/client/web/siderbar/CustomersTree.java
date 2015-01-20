@@ -7,7 +7,7 @@ package zm.hashcode.mshengu.client.web.siderbar;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.ui.Tree;
 import zm.hashcode.mshengu.client.web.MshenguMain;
-import zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.CustomerMenu;
+import zm.hashcode.mshengu.client.web.content.fieldservices.customer.CustomerMenu;
 
 /**
  *

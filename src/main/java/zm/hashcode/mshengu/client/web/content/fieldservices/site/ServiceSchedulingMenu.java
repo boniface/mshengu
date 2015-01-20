@@ -13,6 +13,7 @@ import zm.hashcode.mshengu.client.web.content.fieldservices.servicesperformed.vi
 import zm.hashcode.mshengu.client.web.content.fieldservices.site.forms.CustomerSiteForm;
 import zm.hashcode.mshengu.client.web.content.fieldservices.site.views.AllSiteDetailsTab;
 import zm.hashcode.mshengu.client.web.content.fieldservices.site.views.CustomerSiteDetailsTab;
+//import zm.hashcode.mshengu.client.web.content.fieldservices.site.views.NotActiveSiteDetailsTab;
 import zm.hashcode.mshengu.client.web.content.fieldservices.site.views.SiteContactPersonDetailsTab;
 
 /**
@@ -29,6 +30,7 @@ public class ServiceSchedulingMenu extends VerticalLayout implements Property.Va
     private final AllSiteDetailsTab allSiteDetailsTab;
     private final SiteContactPersonDetailsTab contactPersonDetailsTab;
     private final SiteSiteUnitTab siteSiteUnitTab;
+//    private final NotActiveSiteDetailsTab notActiveSiteDetailsTab;
     private String selectedCustomerId;
     private String selectedSiteId;
 
@@ -40,6 +42,7 @@ public class ServiceSchedulingMenu extends VerticalLayout implements Property.Va
         contactPersonDetailsTab = new SiteContactPersonDetailsTab(main);
         siteSiteUnitTab = new SiteSiteUnitTab(main, "LANDING");
         allSiteDetailsTab = new AllSiteDetailsTab(main);
+//        notActiveSiteDetailsTab = new NotActiveSiteDetailsTab(main);
 
         tab = new TabSheet();
         tab.setHeight("100%");
@@ -47,7 +50,8 @@ public class ServiceSchedulingMenu extends VerticalLayout implements Property.Va
         tab.addTab(customerSiteDetailsTab, "Site Details", null);
         tab.addTab(contactPersonDetailsTab, "Site Contact Person", null);
         tab.addTab(allSiteDetailsTab, "Sites Database");
-//        tab.addTab(siteSiteUnitTab, "Site Toilets List");
+        
+        
         if (selectedCustomerId != null) {
             if (selectedTab.equals("LANDING")) {
                 tab.setSelectedTab(customerSiteDetailsTab);
@@ -55,7 +59,7 @@ public class ServiceSchedulingMenu extends VerticalLayout implements Property.Va
                 tab.setSelectedTab(contactPersonDetailsTab);
             } else if (selectedTab.equals("ALL_SITES")) {
                 tab.setSelectedTab(allSiteDetailsTab);
-            }
+            } 
         } else {
 
             Notification.show("Please select a customer!", Notification.Type.TRAY_NOTIFICATION);

@@ -4,21 +4,24 @@
  */
 package zm.hashcode.mshengu.client.web.content.fieldservices.workscheduling.view;
 
+import com.vaadin.addon.tableexport.ExcelExport;
 import com.vaadin.data.Property;
 import com.vaadin.data.fieldgroup.FieldGroup;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Field;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 import java.util.Collection;
 import org.springframework.util.StringUtils;
-import org.vaadin.haijian.ExcelExporter;
 import zm.hashcode.mshengu.app.facade.fleet.TruckFacade;
 import zm.hashcode.mshengu.app.util.validation.OnSubmitValidationHelper;
 import zm.hashcode.mshengu.client.web.MshenguMain;
 import zm.hashcode.mshengu.client.web.content.fieldservices.workscheduling.WorkSchedulingMenu;
 import zm.hashcode.mshengu.client.web.content.fieldservices.workscheduling.forms.VehicleSheduleForm;
 import zm.hashcode.mshengu.client.web.content.fieldservices.workscheduling.models.VehicleScheduleBean;
+import zm.hashcode.mshengu.client.web.content.fieldservices.workscheduling.tables.VehicleSchedulingExportTable;
 import zm.hashcode.mshengu.client.web.content.fieldservices.workscheduling.tables.VehicleSchedulingTable;
 import zm.hashcode.mshengu.domain.fleet.Truck;
 
@@ -30,39 +33,47 @@ public class VehicleSchedulingTab extends VerticalLayout implements Property.Val
 
     private final MshenguMain main;
     private VehicleSheduleForm form;
-//    private final VehicleInfoForm vehicleInfoForm;
-    private VehicleSchedulingTable table;
-    private ExcelExporter export;
-    private Button exportPdf;
+    private final VehicleSchedulingTable table;    
+    private final VehicleSchedulingExportTable tableToExport;
+    private final Button btnExportSchedule;
 
     public VehicleSchedulingTab(MshenguMain app) {
         main = app;
         form = new VehicleSheduleForm();
         table = new VehicleSchedulingTable(main);
-//        vehicleInfoForm = new VehicleInfoForm();
+        tableToExport = new VehicleSchedulingExportTable(main);
         setSizeFull();
-//        addComponent(vehicleInfoForm);
-        export = new ExcelExporter(table);
-        exportPdf = new Button("Export to Excel");
-        export.setCaption("Export to Excel");
+//      
+        
+        btnExportSchedule = new Button("Export Service Schedule");
+        btnExportSchedule.setSizeFull();
+        btnExportSchedule.setStyleName("default extramargin");
         addComponent(form);
-        addComponent(exportPdf);
-        addComponent(export);
-        export.setVisible(false);
+        addComponent(btnExportSchedule);
+        addComponent(btnExportSchedule);
+        addComponent(new Label("<hr/>", ContentMode.HTML));
+  
         addComponent(table);
+        addComponent(tableToExport);
+        tableToExport.setVisible(false);
 
-        exportPdf.addClickListener(new Button.ClickListener() {
-
-            @Override
-            public void buttonClick(Button.ClickEvent event) {
-                try {
-                    form.binder.commit(); //check for validation before downloading the PDF.
-                } catch (FieldGroup.CommitException ex) {
-                    Collection<Field<?>> fields = form.binder.getFields();
-                    OnSubmitValidationHelper helper = new OnSubmitValidationHelper(fields, form.errorMessage);
-                    helper.doValidation();
-                    Notification.show("Please Correct Red Colored Inputs\nThen try again.", Notification.Type.TRAY_NOTIFICATION);
-                }
+        btnExportSchedule.addClickListener((Button.ClickEvent event) -> {
+            try {
+                form.binder.commit(); //check for validation before downloading the PDF.
+                
+                
+                ExcelExport excelExport = new ExcelExport(tableToExport);
+                excelExport.setExportFileName(tableToExport.getFileName());
+                excelExport.setReportTitle(tableToExport.getReportHeader());
+                excelExport.setDoubleDataFormat("Text");
+                excelExport.setDateDataFormat("dd.MM.yyyy");
+                excelExport.setDisplayTotals(true);
+                excelExport.export();
+            } catch (FieldGroup.CommitException ex) {
+                Collection<Field<?>> fields = form.binder.getFields();
+                OnSubmitValidationHelper helper = new OnSubmitValidationHelper(fields, form.errorMessage);
+                helper.doValidation();
+                Notification.show("Please Correct Red Colored Inputs\nThen try again.", Notification.Type.TRAY_NOTIFICATION);
             }
         });
 
@@ -80,20 +91,21 @@ public class VehicleSchedulingTab extends VerticalLayout implements Property.Val
             if (form.vehicleNumber.getValue() != null) {
                 System.out.println("Vehicle ID" + form.vehicleNumber.getValue().toString());
 
-                final Truck truck = TruckFacade.getTruckService().findById(form.vehicleNumber.getValue().toString());
-//                form.binder.setItemDataSource(new BeanItem<>(getBean(truck)));
+                final Truck truck = TruckFacade.getTruckService().findById(form.vehicleNumber.getValue().toString());//                
+                String truckName = truck.getVehicleNumber() + " - (" + truck.getNumberPlate() + ")";
+                
                 if (!StringUtils.isEmpty(truck.getRoutes())) {
 
                     form.setTruckDetails(truck.getNumberPlate(), truck.getDriverName());
                     table.loadVehicleRoutes(truck.getRoutes());
+                    tableToExport.loadVehicleRoutes(truck.getRoutes());
                     form.setContractTotals(table.getContractSites(), table.getContractFrequency(), table.getContractUnits(), table.getContractServices());
                     form.setPrivateTotals(table.getPrivateSites(), table.getPrivateFrequency(), table.getPrivateUnits(), table.getPrivateServices());
                     form.setOtherTotals(table.getOtherSites(), table.getOtherFrequency(), table.getOtherUnits(), table.getOtherServices());
                     form.setGlobalTotals(table.getTotalSites(), table.getTotalFrequency(), table.getTotalUnits(), table.getTotalServices());
                     form.vehicleNumber.removeStyleName("invalid");
                     form.errorMessage.setValue("");
-                    exportPdf.setVisible(false);
-                    export.setVisible(true);
+                   
                 } else {
                     table.removeAllItems();
                     form.setContractTotals(0, 0, 0, 0);
@@ -102,6 +114,9 @@ public class VehicleSchedulingTab extends VerticalLayout implements Property.Val
                     form.setGlobalTotals(0, 0, 0, 0);
                     form.setTruckDetails("", "");
                 }
+                
+            tableToExport.setReportHeader(truckName, form.lblDriver.getValue());
+                
             } else {
                 System.out.println("Vehicle ID = NULL " + form.vehicleNumber.getValue());
             }

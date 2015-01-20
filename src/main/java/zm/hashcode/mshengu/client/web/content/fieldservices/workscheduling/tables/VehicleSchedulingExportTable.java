@@ -4,7 +4,6 @@
  */
 package zm.hashcode.mshengu.client.web.content.fieldservices.workscheduling.tables;
 
-import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Table;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +21,7 @@ import zm.hashcode.mshengu.domain.ui.location.Location;
  *
  * @author boniface
  */
-public class VehicleSchedulingTable extends Table {
+public class VehicleSchedulingExportTable extends Table {
 
     private final MshenguMain main;
     private UITableIconHelper uITableIconHelper = new UITableIconHelper();
@@ -42,16 +41,13 @@ public class VehicleSchedulingTable extends Table {
     private int totalFrequency;
     private int totalUnits;
     private int totalServices;
-    private VehicleSchedulingExportTable tableToExport;
 
     private final DateTimeFormatWeeklyHelper dtfwh = new DateTimeFormatWeeklyHelper();
     private String fileName = "";
     private StringBuilder reportHeader;
 
-    public VehicleSchedulingTable(MshenguMain main) {
+    public VehicleSchedulingExportTable(MshenguMain main) {
         this.main = main;
-//        tableToExport = new VehicleSchedulingExportTable(main);
-
         setSizeFull();
 
         addContainerProperty("Customer Name", String.class, null);
@@ -62,13 +58,13 @@ public class VehicleSchedulingTable extends Table {
         addContainerProperty("Frequency", Integer.class, null);
         addContainerProperty("NO of Units", Integer.class, null);
         addContainerProperty("Weekly Services", Integer.class, null);
-        addContainerProperty("Mon", Embedded.class, null);
-        addContainerProperty("Tue", Embedded.class, null);
-        addContainerProperty("Wed", Embedded.class, null);
-        addContainerProperty("Thu", Embedded.class, null);
-        addContainerProperty("Fri", Embedded.class, null);
-        addContainerProperty("Sat", Embedded.class, null);
-        addContainerProperty("Sun", Embedded.class, null);
+        addContainerProperty("Mon", String.class, null);
+        addContainerProperty("Tue", String.class, null);
+        addContainerProperty("Wed", String.class, null);
+        addContainerProperty("Thu", String.class, null);
+        addContainerProperty("Fri", String.class, null);
+        addContainerProperty("Sat", String.class, null);
+        addContainerProperty("Sun", String.class, null);
         //addContainerProperty("Contact Number", String.class, null);
 
         // Add Data Columns
@@ -106,13 +102,6 @@ public class VehicleSchedulingTable extends Table {
             int units = 0;
             int frequency = 0;
             int services = 0;
-            Embedded monday = null;
-            Embedded tuesday = null;
-            Embedded wednesday = null;
-            Embedded thursday = null;
-            Embedded friday = null;
-            Embedded saturday = null;
-            Embedded sunday = null;
 
             String mondayExp = null;
             String tuesdayExp = null;
@@ -127,14 +116,6 @@ public class VehicleSchedulingTable extends Table {
                 units = contractLifeCycle.getExpectedNumberOfUnits();
                 frequency = contractLifeCycle.getFrequency();
                 services = contractLifeCycle.getWeeklyServices();
-                monday = uITableIconHelper.getVisitIcon(contractLifeCycle.isSunday(), contractLifeCycle.isMonday(), contractLifeCycle.getExpectedNumberOfUnits());
-                tuesday = uITableIconHelper.getVisitIcon(contractLifeCycle.isMonday(), contractLifeCycle.isTuesday(), contractLifeCycle.getExpectedNumberOfUnits());
-                wednesday = uITableIconHelper.getVisitIcon(contractLifeCycle.isTuesday(), contractLifeCycle.isWednesday(), contractLifeCycle.getExpectedNumberOfUnits());
-                thursday = uITableIconHelper.getVisitIcon(contractLifeCycle.isWednesday(), contractLifeCycle.isThursday(), contractLifeCycle.getExpectedNumberOfUnits());
-                friday = uITableIconHelper.getVisitIcon(contractLifeCycle.isThursday(), contractLifeCycle.isFriday(), contractLifeCycle.getExpectedNumberOfUnits());
-                saturday = uITableIconHelper.getVisitIcon(contractLifeCycle.isFriday(), contractLifeCycle.isSaturday(), contractLifeCycle.getExpectedNumberOfUnits());
-                sunday = uITableIconHelper.getVisitIcon(contractLifeCycle.isSaturday(), contractLifeCycle.isSunday(), contractLifeCycle.getExpectedNumberOfUnits());
-
                 //TO ADD ON THE INVISIBLE TABLE TO EXPORT
                 mondayExp = uITableIconHelper.getVisitUnicodeIcon(contractLifeCycle.isSunday(), contractLifeCycle.isMonday(), contractLifeCycle.getExpectedNumberOfUnits());
                 tuesdayExp = uITableIconHelper.getVisitUnicodeIcon(contractLifeCycle.isMonday(), contractLifeCycle.isTuesday(), contractLifeCycle.getExpectedNumberOfUnits());
@@ -168,15 +149,11 @@ public class VehicleSchedulingTable extends Table {
             } else {
                 addToOther(frequency, units, services);
             }
+
             addItem(new Object[]{customerName, siteName, suburbName,
                 regionName, address, frequency, units, services,
-                monday, tuesday, wednesday, thursday, friday, saturday,
-                sunday,}, site.getId());
-
-//            tableToExport.addItem(new Object[]{customerName, siteName, suburbName,
-//                regionName, address, frequency, units, services,
-//                mondayExp, tuesdayExp, wednesdayExp, thursdayExp, fridayExp, saturdayExp,
-//                sundayExp,}, site.getId());
+                mondayExp, tuesdayExp, wednesdayExp, thursdayExp, fridayExp, saturdayExp,
+                sundayExp,}, site.getId());
         }
 
         // Allow selecting items from the table.
@@ -353,7 +330,5 @@ public class VehicleSchedulingTable extends Table {
         return reportHeader.toString();
     }
 
-//    public VehicleSchedulingExportTable getTableToExport() {
-//        return tableToExport;
-//    }
+   
 }

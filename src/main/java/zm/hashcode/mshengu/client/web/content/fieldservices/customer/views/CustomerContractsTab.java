@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.views;
+package zm.hashcode.mshengu.client.web.content.fieldservices.customer.views;
 
 import com.vaadin.data.Property;
 import com.vaadin.data.fieldgroup.FieldGroup;
@@ -21,12 +21,12 @@ import zm.hashcode.mshengu.app.facade.customer.CustomerFacade;
 import zm.hashcode.mshengu.app.util.UIComboBoxHelper;
 import zm.hashcode.mshengu.app.util.validation.OnSubmitValidationHelper;
 import zm.hashcode.mshengu.client.web.MshenguMain;
-import zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.CustomerMenu;
-import zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.forms.CustomerContractForm;
-import zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.forms.SelectCustomerForm;
-import zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.models.CustomerContractBean;
-import zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.models.SelectCustomerBean;
-import zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.tables.CustomerContractTable;
+import zm.hashcode.mshengu.client.web.content.fieldservices.customer.CustomerMenu;
+import zm.hashcode.mshengu.client.web.content.fieldservices.customer.forms.CustomerContractForm;
+import zm.hashcode.mshengu.client.web.content.fieldservices.customer.forms.SelectCustomerForm;
+import zm.hashcode.mshengu.client.web.content.fieldservices.customer.models.CustomerContractBean;
+import zm.hashcode.mshengu.client.web.content.fieldservices.customer.models.SelectCustomerBean;
+import zm.hashcode.mshengu.client.web.content.fieldservices.customer.tables.CustomerContractTable;
 import zm.hashcode.mshengu.domain.customer.Contract;
 import zm.hashcode.mshengu.domain.customer.ContractType;
 import zm.hashcode.mshengu.domain.customer.Customer;

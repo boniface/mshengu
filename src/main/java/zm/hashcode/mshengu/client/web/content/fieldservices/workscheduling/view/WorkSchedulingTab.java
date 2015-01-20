@@ -4,15 +4,17 @@
  */
 package zm.hashcode.mshengu.client.web.content.fieldservices.workscheduling.view;
 
+import com.vaadin.addon.tableexport.ExcelExport;
 import com.vaadin.data.Property;
 import com.vaadin.data.fieldgroup.FieldGroup;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Field;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 import java.util.Collection;
 import org.springframework.util.StringUtils;
-import org.vaadin.haijian.PdfExporter;
 import zm.hashcode.mshengu.app.facade.fleet.TruckFacade;
 import zm.hashcode.mshengu.app.util.validation.OnSubmitValidationHelper;
 import zm.hashcode.mshengu.client.web.MshenguMain;
@@ -29,40 +31,40 @@ public class WorkSchedulingTab extends VerticalLayout implements Property.ValueC
 
     private final MshenguMain main;
     private final WorkSchedulingForm form;
-//    private final VehicleInfoForm vehicleInfoForm;
     private final WorkSchedulingTable table;
-    private final PdfExporter export;
-    private final Button exportPdf;
+    private final Button btnExportSchedule;
 
     public WorkSchedulingTab(MshenguMain app) {
         main = app;
         form = new WorkSchedulingForm();
         table = new WorkSchedulingTable(main);
-//        vehicleInfoForm = new VehicleInfoForm();
         setSizeFull();
-//        addComponent(vehicleInfoForm);
-        exportPdf = new Button("Export PDF");
-        export = new PdfExporter(table);
-        export.setCaption("Export PDF");
+        
+        btnExportSchedule = new Button("Export Service Schedule");
+        btnExportSchedule.setSizeFull();
+        btnExportSchedule.setStyleName("default extramargin");
         addComponent(form);
-        addComponent(exportPdf);
-        addComponent(export);
-        export.setVisible(false);
+        addComponent(btnExportSchedule);
+        addComponent(new Label("<hr/>", ContentMode.HTML));
         addComponent(table); 
         
 //        form.binder.setReadOnly(true);
-        exportPdf.addClickListener(new Button.ClickListener() {
-
-            @Override
-            public void buttonClick(Button.ClickEvent event) {
-                try {
-                    form.binder.commit(); //check for validation before downloading the PDF.
-                } catch (FieldGroup.CommitException ex) {
-                    Collection<Field<?>> fields = form.binder.getFields();
-                    OnSubmitValidationHelper helper = new OnSubmitValidationHelper(fields, form.errorMessage);
-                    helper.doValidation();
-                    Notification.show("Please Correct Red Colored Inputs\nThen try again.", Notification.Type.TRAY_NOTIFICATION);                    
-                }
+        btnExportSchedule.addClickListener((Button.ClickEvent event) -> {
+            try {
+                form.binder.commit(); //check for validation before downloading the PDF.
+                
+                ExcelExport excelExport = new ExcelExport(table);                
+                excelExport.setExportFileName(table.getFileName());
+                excelExport.setReportTitle(table.getReportHeader());
+                excelExport.setDoubleDataFormat("Text");
+                excelExport.setDateDataFormat("dd.MM.yyyy");
+                excelExport.setDisplayTotals(true);
+                excelExport.export();
+            } catch (FieldGroup.CommitException ex) {
+                Collection<Field<?>> fields = form.binder.getFields();
+                OnSubmitValidationHelper helper = new OnSubmitValidationHelper(fields, form.errorMessage);
+                helper.doValidation();
+                Notification.show("Please Correct Red Colored Inputs\nThen try again.", Notification.Type.TRAY_NOTIFICATION);
             }
         });
         form.truckId.addValueChangeListener((Property.ValueChangeListener) this);
@@ -74,6 +76,7 @@ public class WorkSchedulingTab extends VerticalLayout implements Property.ValueC
         final Property property = event.getProperty();
         if (property == form.truckId) {
             final Truck truck = TruckFacade.getTruckService().findById(form.truckId.getValue().toString());
+            String truckName = truck.getVehicleNumber() + " - (" + truck.getNumberPlate() + ")";
             if (!StringUtils.isEmpty(truck.getDriver())) {
                 form.setDriversName(truck.getDriver());
                 form.driverName.removeStyleName("invalid");                 
@@ -82,22 +85,23 @@ public class WorkSchedulingTab extends VerticalLayout implements Property.ValueC
                 table.loadVehicleRoutes(truck.getRoutes());
                 form.truckId.removeStyleName("invalid");
                 form.errorMessage.setValue("");
-                exportPdf.setVisible(false);
-                export.setVisible(true);
+//                exportPdf.setVisible(false);
+//                export.setVisible(true);
             }else{
                 table.clearTable();
-                export.setVisible(false);
+//                export.setVisible(false);
             }
+            table.setReportHeader(truckName, form.driverName.getValue());
         }
-        if (property == form.driverName) {            
-            if (form.driverName.getValue().equals("")) {                
-                exportPdf.setVisible(true);
-                export.setVisible(false);
-            }else{
-                exportPdf.setVisible(false);
-                export.setVisible(true);
-            }
-        }
+//        if (property == form.driverName) {            
+//            if (form.driverName.getValue().equals("")) {                
+//                exportPdf.setVisible(true);
+////                export.setVisible(false);
+//            }else{
+//                exportPdf.setVisible(false);
+////                export.setVisible(true);
+//            }
+//        }
     }
 
     private void getHome() {

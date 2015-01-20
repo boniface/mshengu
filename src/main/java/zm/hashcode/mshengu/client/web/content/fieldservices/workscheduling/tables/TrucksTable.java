@@ -7,8 +7,10 @@ package zm.hashcode.mshengu.client.web.content.fieldservices.workscheduling.tabl
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.themes.Reindeer;
+import java.util.Date;
 import java.util.List;
 import zm.hashcode.mshengu.app.facade.fleet.TruckFacade;
+import zm.hashcode.mshengu.app.util.DateTimeFormatWeeklyHelper;
 import zm.hashcode.mshengu.client.web.MshenguMain;
 import zm.hashcode.mshengu.domain.fleet.Truck;
 
@@ -20,6 +22,10 @@ public class TrucksTable extends Table {
 
     private final MshenguMain main;
 
+             private final DateTimeFormatWeeklyHelper dtfwh = new DateTimeFormatWeeklyHelper();
+    private String fileName = "";
+    private    StringBuilder reportHeader;
+   
     public TrucksTable(MshenguMain main) {
         this.main = main;
         setSizeFull();
@@ -67,4 +73,26 @@ public class TrucksTable extends Table {
         }
         return "ASSIGNED TO " + truck.getRoutes().size() + " Sites";
     }
+    
+     public void setReportHeader() {
+        dtfwh.setDate(new Date());        
+        reportHeader = new StringBuilder();
+        reportHeader.append("Mshengu Vehicle/Driver Allocation Sheet").append('\n')
+                    .append("Print date  : ").append("\t").append(dtfwh.getTodayForTbaleFormat());
+        
+        fileName = "Mshengu_Vehicle_Allocation_" + dtfwh.getTodayForTbaleFormat() +".xls";
+    }
+    
+    
+     public String getFileName(){
+        if(fileName.equals("")){
+            return fileName = "Mshengu_Vehicle_Allocation_" + dtfwh.getTodayForTbaleFormat() +".xls";
+        }else{
+            return fileName;
+        }
+    }
+     
+     public String getReportHeader(){
+         return reportHeader.toString();
+     }
 }

@@ -4,9 +4,12 @@
  */
 package zm.hashcode.mshengu.client.web.content.fieldservices.workscheduling.view;
 
+import com.vaadin.addon.tableexport.ExcelExport;
 import com.vaadin.data.Property;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TwinColSelect;
 import com.vaadin.ui.VerticalLayout;
@@ -38,6 +41,8 @@ public class ManageRoutesTab extends VerticalLayout implements Button.ClickListe
     private AssignedSitesTable assignedSitesTable;
     private HorizontalLayout assingPanel = new HorizontalLayout();
 
+    private final Button btnExportRoouteAllocation;
+
     public ManageRoutesTab(MshenguMain app) {
         main = app;
         assignLayout.setSizeFull();
@@ -45,35 +50,41 @@ public class ManageRoutesTab extends VerticalLayout implements Button.ClickListe
         assignTrucksButton.setStyleName("default");
         assignTrucksButton.setSizeFull();
         assignTrucksButton.addClickListener((Button.ClickListener) this);
-        
 
         select.setLeftColumnCaption("Select Sites");
         select.setRightColumnCaption(" Selected Sites");
         select.setSizeFull();
         select.setImmediate(true);
         select.setNewItemsAllowed(false);
-        select.addValueChangeListener((Property.ValueChangeListener) this); 
+        select.addValueChangeListener((Property.ValueChangeListener) this);
         select.setMultiSelect(true);
-        
-        table = new TrucksTable(main);        
+
+        btnExportRoouteAllocation = new Button("Export Route Allocation Sheet");
+        btnExportRoouteAllocation.setSizeFull();
+        btnExportRoouteAllocation.setStyleName("default extramargin");
+        btnExportRoouteAllocation.addClickListener((Button.ClickListener) this);
+
+        table = new TrucksTable(main);
         table.addValueChangeListener((Property.ValueChangeListener) this);
 
         List<Site> sites = SiteFacade.getSiteService().findAll();
-
 
         for (Site site : sites) {
             select.addItem(site.getId());
             select.setItemCaption(site.getId(), site.getName() + " " + site.getAddressStreetAddress());
         }
-        
+
         assignLayout.addComponent(select);
         assignLayout.addComponent(assingPanel);
+//        this.addComponent(btnExportRoouteAllocation);
+        this.addComponent(new Label("<hr/>", ContentMode.HTML));
         this.addComponent(table);
+
         addComponent(assignTrucksButton);
         addComponent(assignLayout);
 
     }
-    
+
     public TrucksTable getTable() {
         return table;
     }
@@ -89,7 +100,18 @@ public class ManageRoutesTab extends VerticalLayout implements Button.ClickListe
             } else {
                 Notification.show("Please Select Truck", Notification.Type.ERROR_MESSAGE);
             }
+        } else if (source == btnExportRoouteAllocation) {
+
+            table.setReportHeader();
+            ExcelExport excelExport = new ExcelExport(table);
+            excelExport.setExportFileName(table.getFileName());
+            excelExport.setReportTitle(table.getReportHeader());
+            excelExport.setDoubleDataFormat("Text");
+            excelExport.setDateDataFormat("dd.MM.yyyy");
+            excelExport.setDisplayTotals(false);
+            excelExport.export();
         }
+
     }
 
     @Override

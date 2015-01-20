@@ -2,12 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.views;
+package zm.hashcode.mshengu.client.web.content.fieldservices.customer.views;
 
 import com.vaadin.ui.VerticalLayout;
 import zm.hashcode.mshengu.app.facade.external.IncomingRFQFacade;
 import zm.hashcode.mshengu.client.web.MshenguMain;
-import zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.forms.NewCustomerPDFForm;
+import zm.hashcode.mshengu.client.web.content.fieldservices.customer.forms.NewCustomerPDFForm;
 import zm.hashcode.mshengu.domain.external.IncomingRFQ;
 
 /**

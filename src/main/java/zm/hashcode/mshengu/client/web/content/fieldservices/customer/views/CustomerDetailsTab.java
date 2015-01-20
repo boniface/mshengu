@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.views;
+package zm.hashcode.mshengu.client.web.content.fieldservices.customer.views;
 
 import com.mongodb.MongoException;
 import com.vaadin.data.Property;
@@ -21,10 +21,10 @@ import zm.hashcode.mshengu.app.facade.customer.CustomerFacade;
 import zm.hashcode.mshengu.app.facade.people.ContactPersonFacade;
 import zm.hashcode.mshengu.app.util.validation.OnSubmitValidationHelper;
 import zm.hashcode.mshengu.client.web.MshenguMain;
-import zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.CustomerMenu;
-import zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.forms.CustomerDetailsForm;
-import zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.models.CustomerDetailsBean;
-import zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.tables.CustomerDetailsTable;
+import zm.hashcode.mshengu.client.web.content.fieldservices.customer.CustomerMenu;
+import zm.hashcode.mshengu.client.web.content.fieldservices.customer.forms.CustomerDetailsForm;
+import zm.hashcode.mshengu.client.web.content.fieldservices.customer.models.CustomerDetailsBean;
+import zm.hashcode.mshengu.client.web.content.fieldservices.customer.tables.CustomerDetailsTable;
 import zm.hashcode.mshengu.domain.customer.Contract;
 import zm.hashcode.mshengu.domain.customer.Customer;
 import zm.hashcode.mshengu.domain.customer.Invoice;

@@ -7,14 +7,14 @@ package zm.hashcode.mshengu.client.web.siderbar;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.ui.Tree;
 import zm.hashcode.mshengu.client.web.MshenguMain;
-import zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.CustomerMenu;
+import zm.hashcode.mshengu.client.web.content.fieldservices.customer.CustomerMenu;
 import zm.hashcode.mshengu.client.web.content.fieldservices.contactus.ContactUSMenu;
 import zm.hashcode.mshengu.client.web.content.fieldservices.incidents.IncidentMenu;
-import zm.hashcode.mshengu.client.web.content.setup.mailnotification.MailNotificationMenu;
 import zm.hashcode.mshengu.client.web.content.fieldservices.quoterequest.QuoteRequestsMenu;
 import zm.hashcode.mshengu.client.web.content.fieldservices.servicerequest.ServiceRequestMenu;
 import zm.hashcode.mshengu.client.web.content.fieldservices.servicesperformed.ServicePerformedMenu;
 import zm.hashcode.mshengu.client.web.content.fieldservices.site.ServiceSchedulingMenu;
+//import zm.hashcode.mshengu.client.web.content.fieldservices.sitedatabase.SiteDatabaseMenu;
 import zm.hashcode.mshengu.client.web.content.fieldservices.workscheduling.WorkSchedulingMenu;
 
 /**
@@ -26,6 +26,7 @@ public class FieldServicesTree extends Tree implements ItemClickEvent.ItemClickL
     private final MshenguMain main;
     public static final Object CUSTOMER_SETUP = "Customer Activation";
     public static final Object SERVICE_SCHEDULE = "Service Schedule";
+    public static final Object SITE_DATABASE = "Site Database";
     public static final Object WORK_SCHEDULE = "Work Scheduling";
     public static final Object SERVICES_PERFORMED = "Services Performed";
     public static final Object SERVICES_REQUEST = "Service Request Management";
@@ -38,6 +39,7 @@ public class FieldServicesTree extends Tree implements ItemClickEvent.ItemClickL
         this.main = main;
         addItem(CUSTOMER_SETUP);
         addItem(SERVICE_SCHEDULE);
+        addItem(SITE_DATABASE);
         addItem(SERVICES_PERFORMED);
         addItem(WORK_SCHEDULE);
         addItem(CONTACT_US);
@@ -59,6 +61,9 @@ public class FieldServicesTree extends Tree implements ItemClickEvent.ItemClickL
             if (SERVICE_SCHEDULE.equals(itemId)) {
                 manageSiteView();
             }
+//            if(SITE_DATABASE.equals(itemId)){
+//                manageSiteDatabaseView();
+//            }
             if (SERVICES_PERFORMED.equals(itemId)) {
                 manageServicesPerformedView();
             }
@@ -121,4 +126,8 @@ public class FieldServicesTree extends Tree implements ItemClickEvent.ItemClickL
     private void manageServiceRequestView(){
         main.content.setSecondComponent(new ServiceRequestMenu(main, LANDING_TAB));
     }
+    
+//    private void manageSiteDatabaseView(){
+//        main.content.setSecondComponent(new SiteDatabaseMenu(main, LANDING_TAB));
+//    }
 }

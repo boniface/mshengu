@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.forms;
+package zm.hashcode.mshengu.client.web.content.fieldservices.customer.forms;
 
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.util.BeanItem;
@@ -13,7 +13,7 @@ import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
 import java.util.Set;
 import zm.hashcode.mshengu.app.util.UIComboBoxHelper;
-import zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.models.SelectCustomerBean;
+import zm.hashcode.mshengu.client.web.content.fieldservices.customer.models.SelectCustomerBean;
 import zm.hashcode.mshengu.domain.products.Site;
 
 /**

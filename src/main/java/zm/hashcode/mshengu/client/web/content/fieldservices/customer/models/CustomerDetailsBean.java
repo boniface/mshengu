@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.models;
+package zm.hashcode.mshengu.client.web.content.fieldservices.customer.models;
 
 import java.io.Serializable;
 /**

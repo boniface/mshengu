@@ -159,7 +159,7 @@ public class UITableIconHelper<T> implements Serializable {
     }
 
     public Embedded getVisitIcon(boolean prev, boolean actualday, int totalUnits) {
-
+           
         Embedded icon;
         if (actualday) {
             return icon = new Embedded("", new ThemeResource("Check-icon-24.png"));
@@ -170,6 +170,22 @@ public class UITableIconHelper<T> implements Serializable {
 //                return icon = new Embedded("", new ThemeResource("ball_grey.png"));
                 
                 return icon = new Embedded("", new ThemeResource("blank.png"));
+            }
+        }
+    }
+    
+    public String getVisitUnicodeIcon(boolean prev, boolean actualday, int totalUnits) {
+           
+        String icon;
+        if (actualday) {
+            return icon = "\u2713";
+        } else {
+            if ((prev) && (totalUnits >= 150)) {
+               return icon = "\uF042";
+            } else {
+//                return icon = new Embedded("", new ThemeResource("ball_grey.png"));
+                
+                return icon = "";
             }
         }
     }

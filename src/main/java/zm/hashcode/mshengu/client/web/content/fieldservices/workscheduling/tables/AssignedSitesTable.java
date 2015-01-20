@@ -8,9 +8,11 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.themes.Reindeer;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import zm.hashcode.mshengu.app.facade.fleet.TruckFacade;
 import zm.hashcode.mshengu.app.facade.products.SiteFacade;
+import zm.hashcode.mshengu.app.util.DateTimeFormatWeeklyHelper;
 import zm.hashcode.mshengu.client.web.MshenguMain;
 import zm.hashcode.mshengu.client.web.content.fieldservices.workscheduling.WorkSchedulingMenu;
 import zm.hashcode.mshengu.domain.fleet.Truck;
@@ -23,7 +25,7 @@ import zm.hashcode.mshengu.domain.products.Site;
 public class AssignedSitesTable extends Table {
 
     private final MshenguMain main;
-
+ 
     public AssignedSitesTable(final MshenguMain main, String trackId) {
         this.main = main;
 
@@ -76,4 +78,5 @@ public class AssignedSitesTable extends Table {
     private void getHome() {
         main.content.setSecondComponent(new WorkSchedulingMenu(main, "ROUTES"));
     }
+    
 }

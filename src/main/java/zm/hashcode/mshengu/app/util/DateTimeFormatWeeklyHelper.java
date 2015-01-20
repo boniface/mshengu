@@ -22,8 +22,9 @@ import zm.hashcode.mshengu.domain.products.DaysOfWeekEnum;
 public class DateTimeFormatWeeklyHelper implements Serializable {
 
     private String returnDateFormat = "yyyy-MM-dd";
+    private String tableHeaderFormat = "dd-MMM-yyyy";
     private final String standardDateFormat = "yyyy/MM/dd HH:mm:ss";
-    private Date  date;// = new Date();
+    private Date date;// = new Date();
     private int dayOfWeekToday;
     private int dayOfWeekYesterday;
     private int dayOfWeekEreyesterday;
@@ -43,7 +44,11 @@ public class DateTimeFormatWeeklyHelper implements Serializable {
     private int minusDaysToLastSunday;
     private int minusDaysToLastSaturday;
 
-    
+    private int tableYear;
+    private int tableMonth;
+    private String tableMonthStr;
+    private int tableWeek;
+
     /**
      *
      * @param dateIn (any format format)
@@ -52,6 +57,14 @@ public class DateTimeFormatWeeklyHelper implements Serializable {
     public String getYearMonthDay(Date dateIn) {
         if (dateIn != null) {
             return new SimpleDateFormat(getReturnDateFormat()).format(dateIn);
+        }
+        return null;
+
+    }
+    
+    public String getDayMonthYear(Date dateIn) {
+        if (dateIn != null) {
+            return new SimpleDateFormat(getTableHeaderFormat()).format(dateIn);
         }
         return null;
 
@@ -329,8 +342,6 @@ public class DateTimeFormatWeeklyHelper implements Serializable {
     public String getLastSundayDateYYMMDD() {
         return getYearMonthDay(getLastSundayDateFull());
     }
-    
-
 
     public Date getNextMondayDateFull() {
         Calendar calendar3 = Calendar.getInstance();
@@ -388,13 +399,13 @@ public class DateTimeFormatWeeklyHelper implements Serializable {
         return getYearMonthDay(getYesterdayDateFull());
     }
 
-    public int getDayOfWeek(){
+    public int getDayOfWeek() {
         Calendar calendar = Calendar.getInstance();
 //        Date date = new Date();
         calendar.setTime(getDate());
-        return  calendar.get(Calendar.DAY_OF_WEEK);
+        return calendar.get(Calendar.DAY_OF_WEEK);
     }
- 
+
     public void resetDayOfWeek() {
         switch (getDayOfWeek()) {
             case 1:
@@ -415,7 +426,7 @@ public class DateTimeFormatWeeklyHelper implements Serializable {
                 setDateYesterdayStr(getSaturdayDateYYMMDD());
                 setDateEreyesterdayStr(getFridayDateYYMMDD());
                 break;
-            case 2:  
+            case 2:
                 setDayOfWeekTomorrow(3);
                 setDayOfWeekTomorrowStr(DaysOfWeekEnum.TUESDAY.name());
                 setDateTomorrow(getTuesdayDateFull());
@@ -578,6 +589,11 @@ public class DateTimeFormatWeeklyHelper implements Serializable {
     public String getReturnDateFormat() {
         return returnDateFormat;
     }
+    public String getTableHeaderFormat() {
+        return tableHeaderFormat;
+    }
+    
+    
 
     /**
      * @param returnDateFormat the returnDateFormat to set
@@ -852,8 +868,8 @@ public class DateTimeFormatWeeklyHelper implements Serializable {
         this.date = date;
         resetDayOfWeek();
     }
-    
-        public Date getDate(int day, int month, int year) {
+
+    public Date getDate(int day, int month, int year) {
         Calendar calendar = new GregorianCalendar();
 
         calendar.set(Calendar.YEAR, year);
@@ -861,6 +877,88 @@ public class DateTimeFormatWeeklyHelper implements Serializable {
         calendar.set(Calendar.DAY_OF_MONTH, day);
         return calendar.getTime();
     }
-        
 
+//        private int tableYear;
+//    private int tableMonth;
+//    private String tableMonthStr;
+//    private int tableWeek;
+    public int getYearForTbaleFormat() {
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(getDate());
+        System.out.println("Calendar.YEAR = " + Calendar.YEAR);
+        return calendar.get(Calendar.YEAR);
+    }
+
+    public String getMonthForTbaleFormat() {
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(getDate());
+        String month = "";
+        switch (calendar.get(Calendar.MONTH)) {
+            case 0:
+                month = "January";
+                break;
+            case 1:
+                month = "February";
+                break;
+            case 2:
+                month = "March";
+                break;
+            case 3:
+                month = "April";
+                break;
+            case 4:
+                month = "May";
+                break;
+            case 5:
+                month = "June";
+                break;
+            case 6:
+                month = "July";
+                break;
+            case 7:
+                month = "August";
+                break;
+            case 8:
+                month = "September";
+                break;
+            case 9:
+                month = "October";
+                break;
+            case 10:
+                month = "November";
+                break;
+            case 11:
+                month = "December";
+                break;
+        }
+//            return Calendar.MONTH;
+        return month;
+    }
+
+    public int getWeekForTbaleFormat() {
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(getDate());
+        return calendar.get(Calendar.WEEK_OF_MONTH);
+    }
+
+    public String getMondayForTbaleFormat() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setFirstDayOfWeek(2);
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        return getDayMonthYear(calendar.getTime());
+
+    }
+    
+       public String getSundayForTbaleFormat() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setFirstDayOfWeek(2);
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+        return getDayMonthYear(calendar.getTime());
+
+    }
+      
+       public String getTodayForTbaleFormat() {
+        return getDayMonthYear(new Date());
+
+    }
 }

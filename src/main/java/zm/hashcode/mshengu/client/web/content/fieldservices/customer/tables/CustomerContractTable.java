@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.tables;
+package zm.hashcode.mshengu.client.web.content.fieldservices.customer.tables;
 
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Table;

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.forms;
+package zm.hashcode.mshengu.client.web.content.fieldservices.customer.forms;
 
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.util.BeanItem;
@@ -27,9 +27,9 @@ import zm.hashcode.mshengu.app.util.UIComponentHelper;
 import zm.hashcode.mshengu.app.util.validation.OnSubmitValidationHelper;
 import zm.hashcode.mshengu.app.util.validation.UIValidatorHelper;
 import zm.hashcode.mshengu.client.web.MshenguMain;
-import zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.CustomerMenu;
-import zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.models.NewCustomerBean;
-import zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.models.NewCustomerControl;
+import zm.hashcode.mshengu.client.web.content.fieldservices.customer.CustomerMenu;
+import zm.hashcode.mshengu.client.web.content.fieldservices.customer.models.NewCustomerBean;
+import zm.hashcode.mshengu.client.web.content.fieldservices.customer.models.NewCustomerControl;
 
 /**
  *

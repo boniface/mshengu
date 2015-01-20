@@ -60,29 +60,24 @@ public class AllSitesTable extends Table {
         setImmediate(false);
 
         for (Site site : customerSites) {
-//            String customerName = "N/A";
-//            Customer customer = CustomerFacade.getCustomerService().findById(site.getParentId());
-//            if (customer != null) {
-//                customerName = customer.getName();
-//            }
             if (site.isActive()) {                
-            if (site.getLastSiteServiceContractLifeCycle() != null) {
-                SiteServiceContractLifeCycle contractLifeCycle = site.getLastSiteServiceContractLifeCycle();
-                    totalNumberOfUnits += contractLifeCycle.getExpectedNumberOfUnits();
-                    monthlyServices += contractLifeCycle.getMonthlyServices();
-                    weeklyServices += contractLifeCycle.getWeeklyServices();
-                    totalNumberOfSites += 1;
-                    addItem(new Object[]{customerName,
-                                site.getName(),
-                                site.getLocationName(),
-                                getParentLocation(site.getLocation()),
-                                contractLifeCycle.getExpectedNumberOfUnits(),
-                                contractLifeCycle.getNumberOfUnits(),
-                                contractLifeCycle.getFrequency(),
-                                contractLifeCycle.getMonthlyServices(),
-                                contractLifeCycle.visitDays(),
-                                iconHelper.getCheckOrCross(site.isActive(), 24),}, site.getId());
-                }
+                if (site.getLastSiteServiceContractLifeCycle() != null) {
+                    SiteServiceContractLifeCycle contractLifeCycle = site.getLastSiteServiceContractLifeCycle();
+                        totalNumberOfUnits += contractLifeCycle.getExpectedNumberOfUnits();
+                        monthlyServices += contractLifeCycle.getMonthlyServices();
+                        weeklyServices += contractLifeCycle.getWeeklyServices();
+                        totalNumberOfSites += 1;
+                        addItem(new Object[]{customerName,
+                                    site.getName(),
+                                    site.getLocationName(),
+                                    getParentLocation(site.getLocation()),
+                                    contractLifeCycle.getExpectedNumberOfUnits(),
+                                    contractLifeCycle.getNumberOfUnits(),
+                                    contractLifeCycle.getFrequency(),
+                                    contractLifeCycle.getMonthlyServices(),
+                                    contractLifeCycle.visitDays(),
+                                    iconHelper.getCheckOrCross(site.isActive(), 24),}, site.getId());
+                    }
             }
 
         }

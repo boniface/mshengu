@@ -4,7 +4,9 @@
  */
 package zm.hashcode.mshengu.test.customer;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.testng.annotations.Test;
+import zm.hashcode.mshengu.app.util.DateTimeFormatWeeklyHelper;
 import zm.hashcode.mshengu.domain.customer.Contract;
 import zm.hashcode.mshengu.domain.customer.Customer;
 import zm.hashcode.mshengu.domain.products.Site;
@@ -44,6 +47,30 @@ public class CustomerContractTest extends AppTest {
     private ContractService contractService;
     private String roleId;
 
+    private final DateTimeFormatWeeklyHelper dtfwh = new DateTimeFormatWeeklyHelper();
+    
+    
+        @Test
+    private void dateTest(){
+        
+        String vehicleName = "MSV-05 - (CA 263 564)";
+        String driver = "James Milanzi";
+        dtfwh.setDate(new Date());
+        
+        StringBuilder reportHeader = new StringBuilder();
+        reportHeader.append("Vehicle : ").append("\t").append(vehicleName).append('\n')
+                    .append("Driver  : ").append("\t").append(driver).append('\n')
+                    .append("Period  : ").append("\t").append(dtfwh.getMonthForTbaleFormat()).append(" ").append(dtfwh.getYearForTbaleFormat())
+                    .append("\t").append("(Week ").append(dtfwh.getWeekForTbaleFormat()).append(")").append("\n")
+                    .append("From    : ").append("\t").append(dtfwh.getMondayForTbaleFormat()).append("  To  ").append(dtfwh.getSundayForTbaleFormat())
+                    .append("\n").append("\n").append("\n");
+                            
+                    
+
+
+            System.out.println(reportHeader);
+        
+    }
 //    @Test
     public void customerContracts() {
         customerService = ctx.getBean(CustomerService.class);

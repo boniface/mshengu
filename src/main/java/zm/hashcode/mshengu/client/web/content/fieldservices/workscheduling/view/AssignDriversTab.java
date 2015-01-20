@@ -4,11 +4,14 @@
  */
 package zm.hashcode.mshengu.client.web.content.fieldservices.workscheduling.view;
 
+import com.vaadin.addon.tableexport.ExcelExport;
 import com.vaadin.data.Property;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.util.BeanItem;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Field;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 import java.util.Collection;
@@ -36,6 +39,8 @@ public class AssignDriversTab extends VerticalLayout implements
     private AssignDriverForm form;
     private VehicleInfoForm vehicleInfoForm;
     private AssignedDriversTable table;
+    
+    private final Button btnExportDriverAllocation;
 
     public AssignDriversTab(MshenguMain app) {
         main = app;
@@ -48,8 +53,14 @@ public class AssignDriversTab extends VerticalLayout implements
 
         vehicleInfoForm.binder.setReadOnly(true);
 
+        btnExportDriverAllocation = new Button("Export Driver Allocation Sheet");
+        btnExportDriverAllocation.setSizeFull();
+        btnExportDriverAllocation.setStyleName("default extramargin");
+        
         table = new AssignedDriversTable(main);
         addComponent(table);
+        addComponent(new Label("<hr/>", ContentMode.HTML));
+        addComponent(btnExportDriverAllocation);
         table.addValueChangeListener((Property.ValueChangeListener) this);
         addListeners();
     }
@@ -67,6 +78,8 @@ public class AssignDriversTab extends VerticalLayout implements
             setEditFormProperties();
         } else if (source == form.cancel) {
             getHome();
+        } else if (source == btnExportDriverAllocation) {
+            exportDriverAllocaationSheet();
         }
     }
 
@@ -153,6 +166,7 @@ public class AssignDriversTab extends VerticalLayout implements
         form.cancel.addClickListener((Button.ClickListener) this);
         form.update.addClickListener((Button.ClickListener) this);
         form.delete.addClickListener((Button.ClickListener) this);
+        btnExportDriverAllocation.addClickListener((Button.ClickListener) this);
         //Register Table Listerners        
         form.truckId.addValueChangeListener((Property.ValueChangeListener) this);
     }
@@ -171,4 +185,15 @@ public class AssignDriversTab extends VerticalLayout implements
         return bean;
     }
 
+    
+    public void exportDriverAllocaationSheet(){
+        table.setReportHeader();
+      ExcelExport excelExport = new ExcelExport(table);
+                excelExport.setExportFileName(table.getFileName());
+                excelExport.setReportTitle(table.getReportHeader());
+                excelExport.setDoubleDataFormat("Text");
+                excelExport.setDateDataFormat("dd.MM.yyyy");
+                excelExport.setDisplayTotals(false);
+                excelExport.export();
+  }
 }

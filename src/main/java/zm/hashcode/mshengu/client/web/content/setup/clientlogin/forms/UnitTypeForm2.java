@@ -14,7 +14,7 @@ import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
-import zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.models.CustomerContractBean;
+import zm.hashcode.mshengu.client.web.content.fieldservices.customer.models.CustomerContractBean;
 import zm.hashcode.mshengu.client.web.content.setup.clientlogin.models.UnitTypeBean2;
 import zm.hashcode.mshengu.app.util.UIComboBoxHelper;
 import zm.hashcode.mshengu.app.util.UIComponentHelper;

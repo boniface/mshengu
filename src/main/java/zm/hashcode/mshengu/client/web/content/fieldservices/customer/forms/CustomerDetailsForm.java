@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.forms;
+package zm.hashcode.mshengu.client.web.content.fieldservices.customer.forms;
 
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.util.BeanItem;
@@ -18,7 +18,7 @@ import com.vaadin.ui.TextField;
 import zm.hashcode.mshengu.app.util.UIComponentHelper;
 import zm.hashcode.mshengu.app.util.validation.MobileNumberValidator;
 import zm.hashcode.mshengu.app.util.validation.UIValidatorHelper;
-import zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.models.CustomerDetailsBean;
+import zm.hashcode.mshengu.client.web.content.fieldservices.customer.models.CustomerDetailsBean;
 
 /**
  * I

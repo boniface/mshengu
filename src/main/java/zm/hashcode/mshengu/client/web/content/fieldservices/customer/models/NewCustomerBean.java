@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.models;
+package zm.hashcode.mshengu.client.web.content.fieldservices.customer.models;
 
 /**
  *

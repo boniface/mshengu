@@ -14,7 +14,7 @@ import com.vaadin.ui.Label;
 import java.util.Set;
 import zm.hashcode.mshengu.app.util.UIComboBoxHelper;
 import zm.hashcode.mshengu.client.web.content.assets.siteunit.models.CustomeSitesrBean;
-import zm.hashcode.mshengu.client.web.content.fieldservices.customer.customer.models.SelectCustomerBean;
+import zm.hashcode.mshengu.client.web.content.fieldservices.customer.models.SelectCustomerBean;
 import zm.hashcode.mshengu.domain.products.Site;
 
 /**

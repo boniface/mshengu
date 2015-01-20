@@ -53,7 +53,7 @@ public class VehicleSheduleForm extends FormLayout {
     private Label totalUnits;
     private Label totalServices;
     private Label lblNumberPlate;
-    private Label lblDriver;
+    public Label lblDriver;
     public Label errorMessage;
 
     public VehicleSheduleForm() {
