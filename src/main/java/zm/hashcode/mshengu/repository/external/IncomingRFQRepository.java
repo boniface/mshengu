@@ -4,6 +4,7 @@
  */
 package zm.hashcode.mshengu.repository.external;
 
+import java.util.List;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import zm.hashcode.mshengu.domain.external.IncomingRFQ;
 
@@ -13,4 +14,5 @@ import zm.hashcode.mshengu.domain.external.IncomingRFQ;
  */
 public interface IncomingRFQRepository extends PagingAndSortingRepository<IncomingRFQ, String> {
    public IncomingRFQ findByRefNumber(String refNumber);
+   public List<IncomingRFQ> findByAcceptedStatusOrderByDateOfActionDesc(Boolean acceptedStatus);
 }

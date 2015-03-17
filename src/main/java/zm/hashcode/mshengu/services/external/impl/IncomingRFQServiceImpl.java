@@ -31,6 +31,12 @@ public class IncomingRFQServiceImpl implements IncomingRFQService {
     public List<IncomingRFQ> findAll() {
         return ImmutableList.copyOf(repository.findAll(sortByDate()));
     }
+    
+    
+    @Override
+    public List<IncomingRFQ>  findByAcceptedStatus(Boolean acceptedStatus) {
+        return ImmutableList.copyOf(repository.findByAcceptedStatusOrderByDateOfActionDesc(acceptedStatus));
+    }
 
     @Override
     public void persist(IncomingRFQ incomingRFQ) {

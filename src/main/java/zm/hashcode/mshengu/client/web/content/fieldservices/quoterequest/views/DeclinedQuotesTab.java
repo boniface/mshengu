@@ -23,7 +23,7 @@ import zm.hashcode.mshengu.client.web.MshenguMain;
 import zm.hashcode.mshengu.client.web.content.fieldservices.quoterequest.QuoteRequestsMenu;
 import zm.hashcode.mshengu.client.web.content.fieldservices.quoterequest.forms.QuoteRequestsForm;
 import zm.hashcode.mshengu.client.web.content.fieldservices.quoterequest.models.QuoteRequestBean;
-import zm.hashcode.mshengu.client.web.content.fieldservices.quoterequest.tables.QuoteRequestsTable;
+import zm.hashcode.mshengu.client.web.content.fieldservices.quoterequest.tables.DeclinedQuotesTable;
 import zm.hashcode.mshengu.domain.external.IncomingRFQ;
 import zm.hashcode.mshengu.domain.external.MailNotifications;
 import zm.hashcode.mshengu.domain.ui.util.Sequence;
@@ -32,20 +32,21 @@ import zm.hashcode.mshengu.domain.ui.util.Sequence;
  *
  * @author Luckbliss
  */
-public class QuoteRequestsTab extends VerticalLayout implements
+public class DeclinedQuotesTab extends VerticalLayout implements
         Button.ClickListener, Property.ValueChangeListener {
 
     private final MshenguMain main;
     private final QuoteRequestsForm form;
-    private final QuoteRequestsTable table;
+    private final DeclinedQuotesTable table;
     private final SequenceHelper sequenceHelper = new SequenceHelper();
-    private Boolean acceptedQuote;
+    private boolean acceptedQuote;
     private Date quoteAcceptenceDate;
 
-    public QuoteRequestsTab(MshenguMain app) {
+    public DeclinedQuotesTab(MshenguMain app) {
         main = app;
         form = new QuoteRequestsForm();
-        table = new QuoteRequestsTable(main, this);
+        
+        table = new DeclinedQuotesTable(main, this);
         table.setCellStyleGenerator(new Table.CellStyleGenerator() {
 
             @Override
@@ -85,12 +86,8 @@ public class QuoteRequestsTab extends VerticalLayout implements
             saveEditedForm(form.binder);
         } else if (source == form.delete) {
             deleteForm(form.binder);
-        }else if(source == form.accepted){
+        }else if(source == form.accepted){            
             acceptedQuote = true;
-            quoteAcceptenceDate = new Date();
-            saveEditedForm(form.binder);
-        }else if(source == form.declined){            
-            acceptedQuote = false;
             quoteAcceptenceDate = new Date();
             saveEditedForm(form.binder);
         }
@@ -105,10 +102,8 @@ public class QuoteRequestsTab extends VerticalLayout implements
             setReadFormProperties();
             if(rfg.getStatus().equals("sent")){
                 form.accepted.setVisible(true);
-                form.declined.setVisible(true);
             }else{
                 form.accepted.setVisible(false);
-                form.declined.setVisible(false);
             }
         }
     }

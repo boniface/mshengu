@@ -24,6 +24,10 @@
     color: #000 !important;
 }
 
+.dashboard .v-textarea-blackcolor{ //textfield
+    color: #000 !important;
+}
+
 .dashboard .invalid{
     border-color: #ff3333;
 }
@@ -54,4 +58,16 @@
 
 .dashboard .v-label-labelBlue{
     color: #349aff;
+}
+
+.dashboard .v-table-row.v-table-row-highlight-red,
+.dashboard .v-table-row-odd.v-table-row-highlight-red {
+    color: #F47171;
+}
+
+.dashboard .v-button-background-blue{
+    width: 100%;
+    background: #349aff;
+    color: #fff;
+    text-shadow: 0 0 0 rgba(255, 255, 255, 0.75);
 }

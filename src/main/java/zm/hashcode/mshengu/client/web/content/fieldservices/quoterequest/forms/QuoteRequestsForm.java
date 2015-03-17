@@ -40,6 +40,8 @@ public class QuoteRequestsForm extends FormLayout {
     public Button cancel = new Button("Cancel");
     public Button update = new Button("Update");
     public Button delete = new Button("Delete");
+    public Button accepted = new Button("Accepted");
+    public Button declined = new Button("Declined");
     public Label errorMessage;
 
     public QuoteRequestsForm() {
@@ -50,7 +52,12 @@ public class QuoteRequestsForm extends FormLayout {
         update.setVisible(false);
         delete.setVisible(false);
         edit.setVisible(false);
-
+        
+        accepted.setStyleName("background-blue");
+        declined.setStyleName("background-blue");
+        accepted.setVisible(false);
+        declined.setVisible(false);
+        
         HorizontalLayout buttons = getButtons();
         buttons.setSizeFull();
         
@@ -194,12 +201,17 @@ public class QuoteRequestsForm extends FormLayout {
         cancel.setSizeFull();
         update.setSizeFull();
         delete.setSizeFull();
+        accepted.setSizeFull();
+        declined.setSizeFull();
+        
 
         buttons.addComponent(save);
         buttons.addComponent(edit);
         buttons.addComponent(cancel);
         buttons.addComponent(update);
         buttons.addComponent(delete);
+        buttons.addComponent(accepted);
+        buttons.addComponent(declined);
         return buttons;
     }
 }

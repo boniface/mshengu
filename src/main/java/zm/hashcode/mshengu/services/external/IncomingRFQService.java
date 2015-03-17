@@ -32,4 +32,6 @@ public interface IncomingRFQService {
     
     public IncomingRFQ findByRefNumber(String refNumber);
     
+    public List<IncomingRFQ> findByAcceptedStatus(Boolean acceptedStatus);
+    
 }

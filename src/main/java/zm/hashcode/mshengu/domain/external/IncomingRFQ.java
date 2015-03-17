@@ -64,6 +64,8 @@ public class IncomingRFQ implements Serializable, Comparable<IncomingRFQ> {
     private boolean sunday;
     private String faxNumber;
     private String status;
+    private Date quoteAcceptenceDate;
+    private Boolean acceptedStatus;
     @DBRef(lazy = true)
     private MailNotifications mailNotifications;
     @DBRef(lazy = true)
@@ -112,6 +114,8 @@ public class IncomingRFQ implements Serializable, Comparable<IncomingRFQ> {
         this.mailNotifications = builder.mailNotifications;
         this.userAction = builder.userAction;
         this.status = builder.status;
+        this.acceptedStatus = builder.acceptedStatus;
+        this.quoteAcceptenceDate = builder.quoteAcceptenceDate;
     }
 
     private IncomingRFQ() {
@@ -120,6 +124,22 @@ public class IncomingRFQ implements Serializable, Comparable<IncomingRFQ> {
     @Override
     public int compareTo(IncomingRFQ o) {
         return -1 * getDateOfAction().compareTo(o.getDateOfAction());
+    }
+
+    public Boolean getAcceptedStatus() {
+        return acceptedStatus;
+    }
+
+    public void setAcceptedStatus(Boolean acceptedStatus) {
+        this.acceptedStatus = acceptedStatus;
+    }
+
+    public Date getQuoteAcceptenceDate() {
+        return quoteAcceptenceDate;
+    }
+
+    public void setQuoteAcceptenceDate(Date quoteAcceptenceDate) {
+        this.quoteAcceptenceDate = quoteAcceptenceDate;
     }
 
     /**
@@ -153,7 +173,7 @@ public class IncomingRFQ implements Serializable, Comparable<IncomingRFQ> {
     public String getContactPersonLastname() {
         return contactPersonLastname;
     }
-    
+
     public String getStatus() {
         return status;
     }
@@ -464,6 +484,8 @@ public class IncomingRFQ implements Serializable, Comparable<IncomingRFQ> {
         private MailNotifications mailNotifications;
         private Set<UserAction> userAction = new HashSet<>();
         private String status;
+        private Boolean acceptedStatus;
+        private Date quoteAcceptenceDate;
 
         public Builder incomingRFQ(IncomingRFQ incomingRFQ) {
             this.id = incomingRFQ.getId();
@@ -508,13 +530,25 @@ public class IncomingRFQ implements Serializable, Comparable<IncomingRFQ> {
             this.userAction = incomingRFQ.getUserAction();
             this.refNumber = incomingRFQ.getRefNumber();
             this.status = incomingRFQ.getStatus();
+            this.acceptedStatus = incomingRFQ.getAcceptedStatus();
+            this.quoteAcceptenceDate = incomingRFQ.getQuoteAcceptenceDate();
             return this;
         }
 
         public Builder(Date value) {
-            this.dateOfAction = value;            
+            this.dateOfAction = value;
         }
-        
+
+        public Builder acceptedStatus(Boolean acceptedStatus) {
+            this.acceptedStatus = acceptedStatus;
+            return this;
+        }
+
+        public Builder quoteAcceptenceDate(Date quoteAcceptenceDate) {
+            this.quoteAcceptenceDate = quoteAcceptenceDate;
+            return this;
+        }
+
         public Builder status(String status) {
             this.status = status;
             return this;

@@ -19,11 +19,11 @@ public class QuoteRequestsFollowUpTab extends VerticalLayout {
     private final MshenguMain main;
     private final SendResonseToQuoteRequestPDFForm form;
 
-    public QuoteRequestsFollowUpTab(MshenguMain app, final String id, String total) {
+    public QuoteRequestsFollowUpTab(MshenguMain app, final String id, String responseTotal, String responseComment) {
         
         this.main = app;
         IncomingRFQ rFQToSend = getQuoteToSend(id);
-        form = new SendResonseToQuoteRequestPDFForm(main, rFQToSend, total);
+        form = new SendResonseToQuoteRequestPDFForm(main, rFQToSend, responseTotal, responseComment);
         setSizeFull(); 
         //addComponent(form);
         addComponent(form);

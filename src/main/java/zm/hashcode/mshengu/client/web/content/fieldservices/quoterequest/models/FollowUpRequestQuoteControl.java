@@ -37,7 +37,7 @@ public class FollowUpRequestQuoteControl {
     private DateTimeFormatHelper formatHelper;
     private FollowUpRequestQuoteBean requestedQuoteResponse;
 
-    public ByteArrayOutputStream processFormDataToPDF(IncomingRFQ i, String total) {
+    public ByteArrayOutputStream processFormDataToPDF(IncomingRFQ i, String responseTotal, String responseComment) {
         formatHelper = new DateTimeFormatHelper();
         try {
             requestedQuoteResponse = new FollowUpRequestQuoteBean();
@@ -57,10 +57,9 @@ public class FollowUpRequestQuoteControl {
             requestedQuoteResponse.setQuantityRequired3(i.getQuantityRequired3());
             requestedQuoteResponse.setQuotationDate(formatHelper.getDayMonthYear(i.getDateOfAction()));
             requestedQuoteResponse.setRfqNumber(i.getRefNumber());
+            requestedQuoteResponse.setCustomerName(i.getContactPersonFirstname() + " " + i.getContactPersonLastname());
+            requestedQuoteResponse.setComment(responseComment);
 
-//            System.out.println("Id1: " + i.getToiletsRequired1());
-//            System.out.println("Id2: " + i.getToiletsRequired2());
-//            System.out.println("Id3: " + i.getToiletsRequired3());
             UnitType toiletsRequired1 = UnitTypeFacade.getUnitTypeService().findById(i.getToiletsRequired1());
 
             //if the additional toilets are not entered, the if statememts prevent null pointers.
@@ -78,7 +77,7 @@ public class FollowUpRequestQuoteControl {
             requestedQuoteResponse.setCurrentDate(formatHelper.getDayMonthYear(new Date()));
 
             //calculate totale
-            requestedQuoteResponse.setTotal(String.format("%,.2f", Float.parseFloat(total)));
+            requestedQuoteResponse.setTotal(String.format("%,.2f", Float.parseFloat(responseTotal)));
 
             // Open the docx Template
             String fileName = "requestedquoteresponse.docx";

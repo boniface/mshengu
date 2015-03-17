@@ -56,11 +56,13 @@ public class SendResonseToQuoteRequestPDFForm extends FormLayout {
     public final BeanItem<QuoteBean> item = new BeanItem<>(bean);
     public final FieldGroup binder = new FieldGroup(item);
     private TextField sendemail = new TextField();
-    private final String total;
+    private final String responseTotal;
+    private final String responseComment;
     public Label errorMessage;
 
-    public SendResonseToQuoteRequestPDFForm(final MshenguMain main, final IncomingRFQ rfqToSend, final String total) {
-        this.total = total;
+    public SendResonseToQuoteRequestPDFForm(final MshenguMain main, final IncomingRFQ rfqToSend, final String responseTotal, final String responseComment) {
+        this.responseTotal = responseTotal;
+        this.responseComment = responseComment;
         sendemail = UIComponent.getTextField("Email Address:", "email", QuoteBean.class, binder);
         sendemail.addValidator(UIValidatorHelper.emailValidator());
         sendemail = UIValidatorHelper.setRequiredTextField(sendemail, "Email Address");
@@ -106,7 +108,7 @@ public class SendResonseToQuoteRequestPDFForm extends FormLayout {
         email.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(control.processFormDataToPDF(rfqToSend, total).toByteArray());
+                ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(control.processFormDataToPDF(rfqToSend, responseTotal, responseComment).toByteArray());
                 try {
                     binder.commit();
                     QuoteBean bean = ((BeanItem<QuoteBean>) binder.getItemDataSource()).getBean();
@@ -140,7 +142,7 @@ public class SendResonseToQuoteRequestPDFForm extends FormLayout {
         StreamResource.StreamSource streamSource = new StreamResource.StreamSource() {
             @Override
             public InputStream getStream() {
-                byte byteArray[] = control.processFormDataToPDF(rfq, total).toByteArray();
+                byte byteArray[] = control.processFormDataToPDF(rfq, responseTotal, responseComment).toByteArray();
                 ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArray);
 //                ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(control.processFormDataToPDF(request).toByteArray());
                 byteArrInputStream = byteArrayInputStream;
